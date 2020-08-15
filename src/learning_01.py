@@ -10,7 +10,7 @@ from numpy import argmax
 
 class MnistDeepLearningModeller:
 
-    def __init__(self, load: bool, flat_input: bool):
+    def __init__(self, flat_input: bool):
 
         x1, y1, x2, y2 = self.load_data(normalize=True)
         self.x_train = x1
