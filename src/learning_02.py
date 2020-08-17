@@ -1,4 +1,6 @@
 import os
+import random
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import cv2
 import numpy as np
@@ -26,7 +28,7 @@ class CatsVsDogsModeller:
 
     def build_and_validate_model(self, conv_layer_sizes: tuple, conv_window_size: int, dense_layers: tuple,
                                  batch_size: int, val_split: float, epochs: int):
-        print(f'Building model with {len(conv_layer_sizes)} conv layers')
+        print(f'Building model with {conv_layer_sizes}-c-{dense_layers}-d-{conv_window_size}-w-{batch_size}-b-{val_split}')
 
         self.model.add(Conv2D(conv_layer_sizes[0], (conv_window_size, conv_window_size),
                               input_shape=self.X.shape[1:], activation='relu'))
@@ -111,18 +113,12 @@ class CatsVsDogsModeller:
 
 if __name__ == '__main__':
 
-    dense_layers = (tuple(), (32,), (64,),
+    dense_layers = ((32,), (64,),
                     (32, 32), (64, 64),
                     (32, 64), (64, 32))
     conv_layers = (
-        (64, 64),
-        (128, 128),
-        (256, 256),
-        (64, 128),
-        (128, 256),
         (64, 64, 64),
         (128, 128, 128),
-        (256, 256, 256),
         (64, 64, 128),
         (128, 128, 256),
         (64, 64, 128),
@@ -133,8 +129,8 @@ if __name__ == '__main__':
         (128, 256, 128),
     )
 
-    window_sizes = (2, 3, 4)
-    batch_sizes = (8, 16, 32, 64)
+    window_sizes = (3, 4)
+    batch_sizes = (16, 32, 64)
     splits = (0.1, 0.2, 0.3)
 
     for dense_layer_tuple in dense_layers:
@@ -142,6 +138,9 @@ if __name__ == '__main__':
             for window_size in window_sizes:
                 for batch_size in batch_sizes:
                     for val_split in splits:
+                        if val_split == .3:
+                            if random.randint(0, 1) == 1:
+                                continue
                         name = f'{conv_layer_tuple}-c--{dense_layer_tuple}-d--{window_size}-w--{batch_size}-b--{val_split}-v--{dt.now().strftime("%Y%m%d-%H%M%S")}-timeid'
                         modeller = CatsVsDogsModeller(log_name=name)
                         modeller.load_data(80, load_saved=True)
