@@ -3,5 +3,7 @@ venv/
 *.pyc
 *__pycache__*
 **/kaggle/
-**/logs
+**/logs/
 **/*.pickle
+**/images/
+**/models/
