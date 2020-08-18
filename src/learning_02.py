@@ -127,40 +127,52 @@ class NoModelFoundException(Exception): ...
 
 if __name__ == '__main__':
 
-    dense_layers = ((32,), (64,),
-                    (32, 32), (64, 64),
-                    (32, 64), (64, 32))
-    conv_layers = (
-        (64, 64, 64),
-        (128, 128, 128),
-        (64, 64, 128),
-        (128, 128, 256),
-        (64, 64, 128),
-        (128, 128, 256),
-        (64, 128, 128),
-        (128, 256, 256),
-        (64, 128, 64),
-        (128, 256, 128),
-    )
+    """
+    The code below is what was used for benchmarking and testing different models.
+    The best model was found to be:
 
-    window_sizes = (3, 4)
-    batch_sizes = (16, 32, 64)
-    splits = (0.1, 0.2, 0.3)
+    Conv layers - 64, 128, 128
+    Dense Layers - None
+    Window size - 3
+    Batch Size - 64
+    Split size - either 10% or 20%
+    """
 
-    for dense_layer_tuple in dense_layers:
-        for conv_layer_tuple in conv_layers:
-            for window_size in window_sizes:
-                for batch_size in batch_sizes:
-                    for val_split in splits:
-                        if val_split == .3:
-                            if random.randint(0, 1) == 1:
-                                continue
-                        name = f'{conv_layer_tuple}-c--{dense_layer_tuple}-d--{window_size}-w--{batch_size}-b--{val_split}-v--{dt.now().strftime("%Y%m%d-%H%M%S")}-timeid'
-                        modeller = CatsVsDogsModeller(size_x=80, log_name=name)
-                        modeller.load_data(load_saved=True)
-                        modeller.build_and_validate_model(conv_layer_sizes=conv_layer_tuple,
-                                                          conv_window_size=window_size,
-                                                          dense_layers=dense_layer_tuple,
-                                                          batch_size=batch_size,
-                                                          val_split=val_split,
-                                                          epochs=10)
+
+    # dense_layers = ((32,), (64,),
+    #                 (32, 32), (64, 64),
+    #                 (32, 64), (64, 32))
+    # conv_layers = (
+    #     (64, 64, 64),
+    #     (128, 128, 128),
+    #     (64, 64, 128),
+    #     (128, 128, 256),
+    #     (64, 64, 128),
+    #     (128, 128, 256),
+    #     (64, 128, 128),
+    #     (128, 256, 256),
+    #     (64, 128, 64),
+    #     (128, 256, 128),
+    # )
+    #
+    # window_sizes = (3, 4)
+    # batch_sizes = (16, 32, 64)
+    # splits = (0.1, 0.2, 0.3)
+    #
+    # for dense_layer_tuple in dense_layers:
+    #     for conv_layer_tuple in conv_layers:
+    #         for window_size in window_sizes:
+    #             for batch_size in batch_sizes:
+    #                 for val_split in splits:
+    #                     if val_split == .3:
+    #                         if random.randint(0, 1) == 1:
+    #                             continue
+    #                     name = f'{conv_layer_tuple}-c--{dense_layer_tuple}-d--{window_size}-w--{batch_size}-b--{val_split}-v--{dt.now().strftime("%Y%m%d-%H%M%S")}-timeid'
+    #                     modeller = CatsVsDogsModeller(size_x=80, log_name=name)
+    #                     modeller.load_data(load_saved=True)
+    #                     modeller.build_and_validate_model(conv_layer_sizes=conv_layer_tuple,
+    #                                                       conv_window_size=window_size,
+    #                                                       dense_layers=dense_layer_tuple,
+    #                                                       batch_size=batch_size,
+    #                                                       val_split=val_split,
+    #                                                       epochs=10)
