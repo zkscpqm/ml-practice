@@ -78,7 +78,7 @@ class MnistDeepLearningModeller:
 
 
 if __name__ == '__main__':
-    modeller = MnistDeepLearningModeller(load=True, flat_input=True)
+    modeller = MnistDeepLearningModeller(flat_input=True)
     modeller.build_and_validate_model(dense_func_sizes=(128, 128),
                                       epochs=4)
     x = modeller.predict(index=5, raw=True)

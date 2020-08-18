@@ -2,3 +2,6 @@ venv/
 .idea/
 *.pyc
 *__pycache__*
+**/kaggle/
+**/logs
+**/*.pickle
