@@ -1,5 +1,4 @@
 import os
-import random
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import cv2
 import numpy as np
@@ -11,7 +10,7 @@ from tensorflow.keras.callbacks import TensorBoard
 
 
 class CatsVsDogsModeller:
-    _DATADIR = 'kaggle/'
+    _DATADIR = 'datasets/kaggle/'
     _LOGDIR = 'logs/'
     _SAVED_MODELS_DIR = 'models/'
     _CATEGORIES = ['Cat', 'Dog']
@@ -98,17 +97,17 @@ class CatsVsDogsModeller:
     @staticmethod
     def save_training_data(X, y):
         from pickle import dump
-        with open('X.pickle', 'wb+') as x_pick:
+        with open('pickles/kaggle_X.pickle', 'wb+') as x_pick:
             dump(X, x_pick)
-        with open('y.pickle', 'wb+') as y_pick:
+        with open('pickles/kaggle_y.pickle', 'wb+') as y_pick:
             dump(y, y_pick)
 
     def load_training_data(self):
         print('Attempting to load from file')
         from pickle import load
-        with open('X.pickle', 'rb') as x_pick:
+        with open('pickles/kaggle_X.pickle', 'rb') as x_pick:
             X = load(x_pick)
-        with open('y.pickle', 'rb') as y_pick:
+        with open('pickles/kaggle_y.pickle', 'rb') as y_pick:
             y = load(y_pick)
         print('Load successful')
         return X, y

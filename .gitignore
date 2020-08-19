@@ -2,8 +2,8 @@ venv/
 .idea/
 *.pyc
 *__pycache__*
-**/kaggle/
+**/datasets/
 **/logs/
-**/*.pickle
+**/pickles
 **/images/
 **/models/
