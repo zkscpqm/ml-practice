@@ -11,7 +11,7 @@ from tensorflow.keras.callbacks import TensorBoard
 
 class CatsVsDogsModeller:
     _DATADIR = 'datasets/kaggle/'
-    _LOGDIR = 'logs/'
+    _LOGDIR = 'logs/kaggle/'
     _SAVED_MODELS_DIR = 'models/'
     _CATEGORIES = ['Cat', 'Dog']
 
